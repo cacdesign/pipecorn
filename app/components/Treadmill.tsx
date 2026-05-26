@@ -1,24 +1,52 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 export default function Treadmill() {
   const treadmillRef = useRef<HTMLDivElement>(null);
   const runnerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  const startAnimation = useCallback(() => {
+    const runner = runnerRef.current;
+    const section = sectionRef.current;
+    const tread = treadmillRef.current;
+    if (!runner || !section) return;
+
+    // Scroll treadmill into view so the user can watch
+    tread?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // Clear any pending timer
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    // Strip classes and force reflow so CSS animations restart
+    runner.classList.remove("go");
+    section.classList.remove("bucket-arrived");
+    void runner.offsetWidth; // reflow
+
+    runner.classList.add("go");
+    timerRef.current = setTimeout(() => section.classList.add("bucket-arrived"), 6200);
+  }, []);
+
+  // Attach button listener imperatively — more reliable than JSX onClick in Next.js
+  useEffect(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+    btn.addEventListener("click", startAnimation);
+    return () => btn.removeEventListener("click", startAnimation);
+  }, [startAnimation]);
 
   useEffect(() => {
     const tread = treadmillRef.current;
-    const runner = runnerRef.current;
-    const section = sectionRef.current;
-    if (!tread || !runner || !section) return;
+    if (!tread) return;
 
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            runner.classList.add("go");
-            setTimeout(() => section.classList.add("bucket-arrived"), 6200);
+            startAnimation();
             io.disconnect();
           }
         });
@@ -26,8 +54,11 @@ export default function Treadmill() {
       { threshold: 0.4 }
     );
     io.observe(tread);
-    return () => io.disconnect();
-  }, []);
+    return () => {
+      io.disconnect();
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [startAnimation]);
 
   return (
     <>
@@ -98,9 +129,9 @@ export default function Treadmill() {
             your CRM, sales engagement and outreach stack. One click, every
             platform.
           </p>
-          <a className="btn-pill btn-watch" href="#">
-            ▶ Watch in action
-          </a>
+          <button ref={btnRef} className="btn-pill btn-watch">
+            Enrich my bucket
+          </button>
         </div>
 
         <div className="treadmill" id="treadmill" ref={treadmillRef}>

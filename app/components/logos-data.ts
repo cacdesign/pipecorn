@@ -1,5 +1,8 @@
 export type CaseStudy = {
   brand: string;
+  logo?: string;
+  logoInvert?: boolean;
+  logoTight?: boolean;
   pill?: "Case study" | "Interview";
   popup?: {
     img: string;
@@ -13,6 +16,7 @@ export type CaseStudy = {
 export const LOGOS_ROW_1: CaseStudy[] = [
   {
     brand: "Uber",
+    logo: "/assets/logo-uber.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
@@ -23,9 +27,10 @@ export const LOGOS_ROW_1: CaseStudy[] = [
       readLabel: "Read full case study →",
     },
   },
-  { brand: "VISA" },
+  { brand: "VISA", logo: "/assets/logo-visa.svg" },
   {
     brand: "lumapps",
+    logo: "/assets/logo-lumapps.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=600&q=80",
@@ -36,9 +41,10 @@ export const LOGOS_ROW_1: CaseStudy[] = [
       readLabel: "Read full case study →",
     },
   },
-  { brand: "Alma" },
+  { brand: "Alma", logo: "/assets/logo-alma.svg" },
   {
     brand: "Mantu",
+    logo: "/assets/logo-mantu.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
@@ -51,6 +57,8 @@ export const LOGOS_ROW_1: CaseStudy[] = [
   },
   {
     brand: "Qevlar AI",
+    logo: "/assets/logo-qevlar.svg",
+    logoTight: true,
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=600&q=80",
@@ -63,6 +71,7 @@ export const LOGOS_ROW_1: CaseStudy[] = [
   },
   {
     brand: "yousign",
+    logo: "/assets/logo-yousign.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80",
@@ -73,12 +82,13 @@ export const LOGOS_ROW_1: CaseStudy[] = [
       readLabel: "Read full case study →",
     },
   },
-  { brand: "lemlist" },
+  { brand: "lemlist", logo: "/assets/logo-lemlist.webp" },
 ];
 
 export const LOGOS_ROW_2: CaseStudy[] = [
   {
     brand: "weyou",
+    logo: "/assets/logo-weyou.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80",
@@ -91,6 +101,7 @@ export const LOGOS_ROW_2: CaseStudy[] = [
   },
   {
     brand: "qobra",
+    logo: "/assets/logo-qobra.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=600&q=80",
@@ -103,6 +114,7 @@ export const LOGOS_ROW_2: CaseStudy[] = [
   },
   {
     brand: "Bonx",
+    logo: "/assets/logo-bonx.svg",
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80",
@@ -127,6 +139,8 @@ export const LOGOS_ROW_2: CaseStudy[] = [
   },
   {
     brand: "recom",
+    logo: "/assets/logo-recom.webp",
+    logoInvert: true,
     pill: "Case study",
     popup: {
       img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80",
@@ -137,9 +151,10 @@ export const LOGOS_ROW_2: CaseStudy[] = [
       readLabel: "Read full case study →",
     },
   },
-  { brand: "slite" },
+  { brand: "slite", logo: "/assets/logo-slite.svg" },
   {
     brand: "youno",
+    logo: "/assets/logo-youno.svg",
     pill: "Interview",
     popup: {
       img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=600&q=80",
@@ -152,6 +167,7 @@ export const LOGOS_ROW_2: CaseStudy[] = [
   },
   {
     brand: "Hyperline",
+    logo: "/assets/logo-hyperline.svg",
     pill: "Interview",
     popup: {
       img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=600&q=80",

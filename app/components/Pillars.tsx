@@ -27,7 +27,7 @@ export default function Pillars() {
         <h2 className="works-title">
           We fix the data.
           <br />
-          <span className="hl">Your reps close the deals.</span>
+          <span className="hl">Your reps feast.</span>
         </h2>
         <p className="works-sub">
           Live market, instant signals, verified contacts, pushed straight to

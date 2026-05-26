@@ -3,7 +3,22 @@ import { CaseStudy, LOGOS_ROW_1, LOGOS_ROW_2 } from "./logos-data";
 function LogoItem({ item }: { item: CaseStudy }) {
   return (
     <div className="logo-item">
-      <span className="logo-name">{item.brand}</span>
+      <div className="logo-slot">
+        {item.logo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className={
+              "logo-img" +
+              (item.logoInvert ? " logo-img--invert" : "") +
+              (item.logoTight ? " logo-img--tight" : "")
+            }
+            src={item.logo}
+            alt={item.brand}
+          />
+        ) : (
+          <span className="logo-name">{item.brand}</span>
+        )}
+      </div>
       {item.pill ? (
         <a href="#" className="case-pill">
           {item.pill}

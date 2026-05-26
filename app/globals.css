@@ -259,15 +259,18 @@
   .case-popup .read {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
     margin-top: 12px;
-    color: #3D5BFF;
+    padding: 12px 22px;
+    background: #EBEBEB;
+    border-radius: 100px;
+    color: var(--dark);
     font-weight: 700;
-    font-size: 13px;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    font-size: 14px;
+    text-decoration: none;
     cursor: url("/assets/mickey-pointer-32.png") 3 1, pointer;
+    transition: background 0.15s;
   }
+  .case-popup .read:hover { background: #DCDCDC; }
   /* Edge alignment so popups near the row edges don't clip */
   .logo-row .logo-item:nth-child(1) .case-popup,
   .logo-row .logo-item:nth-child(2) .case-popup { left: 0; transform-origin: bottom left; transform: translateY(8px) scale(0.96); }
@@ -297,22 +300,51 @@
   .logo-item .logo-name::first-letter {
     text-transform: uppercase;
   }
+  .logo-item .logo-slot {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-item .logo-img {
+    height: 26px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    opacity: 0.85;
+    filter: grayscale(1);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+  .logo-item:hover .logo-img {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+  .logo-item .logo-img--invert {
+    filter: grayscale(1) invert(1);
+  }
+  .logo-item:hover .logo-img--invert {
+    filter: invert(1);
+  }
+  .logo-item .logo-img--tight {
+    height: 18px;
+  }
   .logo-item .case-pill {
-    display: inline-block;
-    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #EFEAE0;
     color: var(--dark);
-    border: 1.5px solid var(--dark);
+    border: none;
     border-radius: 999px;
-    padding: 3px 12px;
+    padding: 6px 14px;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
     cursor: url("/assets/mickey-pointer-32.png") 3 1, pointer;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease;
   }
   .logo-item .case-pill:hover {
-    background: var(--dark);
-    color: var(--cream);
+    background: #E4DCC9;
   }
   .logo-item .case-pill.invisible {
     visibility: hidden;
@@ -580,12 +612,17 @@
     position: relative;
     z-index: 3;
   }
+  .anywhere-copy {
+    position: relative;
+    z-index: 4;
+  }
   .anywhere-copy h2 {
     font-family: 'Outfit', sans-serif;
     font-size: clamp(40px, 4.6vw, 64px);
     line-height: 1.02;
     font-weight: 800;
     letter-spacing: -1.5px;
+    text-transform: uppercase;
     margin-bottom: 28px;
     color: var(--cream);
   }
@@ -600,10 +637,9 @@
     background: var(--cream);
     color: var(--dark);
     padding: 14px 28px;
+    cursor: url("/assets/mickey-pointer-32.png") 3 1, pointer;
   }
-  .anywhere .btn-pill.btn-watch:hover {
-    background: #fff;
-  }
+  .anywhere .btn-pill.btn-watch:hover { background: #fff; }
 
   /* Treadmill / conveyor with empty bucket */
   .treadmill {
@@ -1250,6 +1286,7 @@
     font-weight: 900;
     line-height: 0.95;
     letter-spacing: -2px;
+    text-transform: uppercase;
     color: var(--dark);
     text-align: center;
     margin: 0 auto 60px;
@@ -1382,15 +1419,14 @@
   .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
   .comp-card { background: #FFFFFF; border-radius: 22px; padding: 32px; text-align: center; box-shadow: 0 16px 40px -20px rgba(37,30,0,0.15); }
   .comp-badge {
-    width: 88px; height: 88px; border-radius: 22px;
+    width: 100px; height: 100px;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 20px;
-    font-weight: 900; color: #fff; font-size: 18px;
-    letter-spacing: 0.5px;
   }
-  .comp-badge.soc { background: linear-gradient(135deg, #3B82F6, #1E40AF); }
-  .comp-badge.gdpr { background: linear-gradient(135deg, #FFD166, #E8A800); color: var(--dark); }
-  .comp-badge.ccpa { background: linear-gradient(135deg, #B83A2B, #7A1F12); }
+  .comp-badge img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
   .comp-card h3 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 900; color: var(--dark); margin: 0 0 10px; }
   .comp-card p { color: var(--soft); font-size: 14px; line-height: 1.55; margin: 0; }
   @media (max-width: 900px) { .comp-grid { grid-template-columns: 1fr; } }
@@ -1403,6 +1439,7 @@
     font-weight: 900;
     letter-spacing: -2px;
     line-height: 0.95;
+    text-transform: uppercase;
     margin: 0 0 24px;
   }
   .final-cta h2 .hl { background: var(--butter); color: var(--dark); padding: 0 12px; font-style: italic; }
@@ -2941,3 +2978,496 @@
 .nav-feature-desc { font-size: 12px; color: var(--soft); }
 .nav-feature--static { cursor: default; }
 .nav-surface--static { cursor: default; }
+
+/* ==========================================================================
+   UseCaseCarousel — p-ucCar
+   ========================================================================== */
+
+.p-ucCar {
+  padding: 96px 0 80px;
+  background: var(--cream);
+  overflow: hidden;
+}
+.p-ucCar__head {
+  text-align: center;
+  margin-bottom: 56px;
+  padding: 0 24px;
+}
+.p-ucCar__kicker {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--soft);
+  margin-bottom: 16px;
+}
+.p-ucCar__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--dark);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.p-ucCar__title em {
+  font-style: italic;
+  background: var(--butter);
+  padding: 0 12px;
+}
+.p-ucCar__sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: var(--soft);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+.p-ucCar__bar {
+  max-width: 1040px;
+  margin: 0 auto 28px;
+  padding: 0 24px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+}
+.p-ucCar__barLabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.p-ucCar__barLabel strong {
+  font-weight: 800;
+  color: var(--mid);
+}
+.p-ucCar__seeAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  background: #FFFFFF;
+  cursor: url("/assets/mickey-pointer-32.png") 3 1, pointer;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.p-ucCar__seeAll:hover {
+  border-color: var(--dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -4px rgba(16, 24, 40, 0.18);
+}
+.p-ucCar__seeAll svg { transition: transform 0.15s; }
+.p-ucCar__seeAll:hover svg { transform: translateX(2px); }
+.p-ucCar__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 720px);
+  justify-content: center;
+  padding: 24px 0;
+  margin: 0 auto;
+}
+.p-ucCar__slide {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 380ms ease-out,
+    filter 380ms ease-out;
+  will-change: transform, opacity, filter;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.p-ucCar__slide > .p-ucCar__card { width: 100%; }
+.p-ucCar__slide.is-active { opacity: 1; pointer-events: auto; z-index: 3; }
+.p-ucCar__slide.is-adjacent {
+  opacity: 0.55;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 2;
+  filter: saturate(0.55) blur(6px);
+}
+.p-ucCar__slide.is-adjacent:hover {
+  opacity: 0.75;
+  filter: saturate(0.8) blur(2px);
+}
+.p-ucCar__slide.is-far { opacity: 0; filter: blur(8px); }
+.p-ucCar__card {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2px 8px rgba(16, 24, 40, 0.05),
+    0 24px 56px -16px rgba(16, 24, 40, 0.18);
+  overflow: hidden;
+}
+.p-ucCar__cardBody { display: flex; flex-direction: column; flex: 1; }
+.p-ucCar__profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.p-ucCar__photoWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 4px 12px -4px rgba(16, 24, 40, 0.20);
+}
+.p-ucCar__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.p-ucCar__who { display: flex; flex-direction: column; min-width: 0; }
+.p-ucCar__name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.2;
+}
+.p-ucCar__role {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12.5px;
+  color: var(--soft);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.p-ucCar__co {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: #FFFFFF;
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.p-ucCar__schema {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+.p-ucCar__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 18px 20px;
+  border-radius: 16px;
+  border: 1px solid;
+}
+.p-ucCar__col--before {
+  background: var(--cream);
+  border-color: rgba(140, 122, 80, 0.30);
+  box-shadow: 0 6px 16px -8px rgba(37, 30, 0, 0.18);
+  color: var(--dark);
+}
+.p-ucCar__col--after {
+  background: var(--butter);
+  border-color: rgba(37, 30, 0, 0.18);
+  box-shadow: 0 6px 16px -8px rgba(255, 214, 0, 0.45);
+}
+.p-ucCar__colHead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.p-ucCar__colLabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.p-ucCar__col--before .p-ucCar__colLabel { color: var(--dark); }
+.p-ucCar__col--after .p-ucCar__colLabel { color: var(--dark); }
+.p-ucCar__col--before .p-ucCar__colMeta { color: var(--soft); }
+.p-ucCar__colMeta {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B5A33;
+  flex: 1;
+  min-width: 0;
+}
+.p-ucCar__tools {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.p-ucCar__tool {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #FFFFFF;
+  border: 1px solid rgba(59, 79, 230, 0.18);
+  border-radius: 10px;
+  position: relative;
+}
+.p-ucCar__tool::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: #DC2626;
+  border-radius: 2px;
+  opacity: 0.45;
+}
+.p-ucCar__toolFav {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.p-ucCar__toolFav--code {
+  font-size: 13px;
+  color: var(--soft);
+  line-height: 1;
+  text-align: center;
+}
+.p-ucCar__toolName {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+  text-decoration: line-through;
+  text-decoration-color: rgba(220, 38, 38, 0.45);
+  text-decoration-thickness: 2px;
+  min-width: 0;
+}
+.p-ucCar__prontoBlock {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 22px 18px;
+  background: #FFFFFF;
+  border: 1px solid rgba(255, 187, 0, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px -10px rgba(255, 187, 0, 0.45);
+}
+.p-ucCar__prontoLogo {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--dark);
+}
+.p-ucCar__colFoot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.p-ucCar__statsRow { display: flex; gap: 8px; }
+.p-ucCar__stat {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #FFFFFF;
+  border: 1px solid rgba(59, 79, 230, 0.18);
+  border-radius: 10px;
+  padding: 9px 10px;
+}
+.p-ucCar__stat--after { border-color: rgba(255, 187, 0, 0.40); }
+.p-ucCar__statIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  background: rgba(59, 79, 230, 0.10);
+  color: #3B4FE6;
+}
+.p-ucCar__stat--after .p-ucCar__statIcon {
+  background: rgba(180, 110, 30, 0.12);
+  color: #B97A1A;
+}
+.p-ucCar__statBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.p-ucCar__statVal {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.p-ucCar__stat .p-ucCar__statVal { color: #3B4FE6; }
+.p-ucCar__stat--after .p-ucCar__statVal { color: #B97A1A; }
+.p-ucCar__statLabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10.5px;
+  color: var(--soft);
+  line-height: 1.3;
+}
+.p-ucCar__cost {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 12px;
+  border: 1px solid rgba(59, 79, 230, 0.18);
+  border-radius: 10px;
+  background: #FFFFFF;
+  gap: 8px;
+}
+.p-ucCar__cost--after { border-color: rgba(255, 187, 0, 0.40); }
+.p-ucCar__costLabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10.5px;
+  color: var(--soft);
+  white-space: nowrap;
+}
+.p-ucCar__costVal {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dark);
+  text-align: right;
+}
+.p-ucCar__cost--before .p-ucCar__costVal { color: #3B4FE6; }
+.p-ucCar__cost--after .p-ucCar__costVal { color: #B97A1A; }
+.p-ucCar__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  color: #B97A1A;
+}
+.p-ucCar__savings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--butter);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 13px 24px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.p-ucCar__savingsIcon { font-size: 11px; opacity: 0.7; }
+.p-ucCar__navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 1px 3px rgba(16, 24, 40, 0.08),
+    0 8px 24px -8px rgba(16, 24, 40, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: url("/assets/mickey-pointer-32.png") 3 1, pointer;
+  color: var(--dark);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.p-ucCar__navBtn:hover {
+  background: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.18);
+  transform: translateY(-50%) scale(1.08);
+}
+.p-ucCar__navBtn--prev { left: 4%; }
+.p-ucCar__navBtn--next { right: 4%; }
+.p-ucCar__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 32px;
+}
+.p-ucCar__dot {
+  width: 22px;
+  height: 4px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0, 0, 0, 0.16);
+  padding: 0;
+  cursor: url("/assets/mickey-pointer-32.png") 3 1, pointer;
+  transition: background 0.25s, width 0.25s;
+}
+.p-ucCar__dot:hover { background: rgba(0, 0, 0, 0.32); }
+.p-ucCar__dot.is-active { background: var(--dark); width: 36px; }
+@media (max-width: 1100px) {
+  .p-ucCar__navBtn--prev { left: 2%; }
+  .p-ucCar__navBtn--next { right: 2%; }
+}
+@media (max-width: 860px) {
+  .p-ucCar { padding: 80px 0 64px; }
+  .p-ucCar__bar { padding: 0 24px 14px; }
+  .p-ucCar__stage { padding: 16px 24px; }
+  .p-ucCar__slide.is-adjacent { opacity: 0; pointer-events: none; }
+  .p-ucCar__profile { padding: 14px 18px; gap: 12px; }
+  .p-ucCar__photoWrap { width: 48px; height: 48px; }
+  .p-ucCar__navBtn { width: 36px; height: 36px; }
+}
+@media (max-width: 560px) {
+  .p-ucCar__schema { grid-template-columns: 1fr; padding: 16px; }
+  .p-ucCar__arrow { display: none; }
+  .p-ucCar__navBtn--prev { left: 8px; }
+  .p-ucCar__navBtn--next { right: 8px; }
+}

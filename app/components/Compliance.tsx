@@ -10,7 +10,10 @@ export default function Compliance() {
       </p>
       <div className="comp-grid">
         <div className="comp-card">
-          <div className="comp-badge soc">SOC 2</div>
+          <div className="comp-badge">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/compliance-soc2.webp" alt="AICPA SOC 2 badge" loading="lazy" />
+          </div>
           <h3>SOC 2 Type II</h3>
           <p>
             Pipecorn is SOC 2 Type II compliant, ensuring the highest standards
@@ -18,7 +21,10 @@ export default function Compliance() {
           </p>
         </div>
         <div className="comp-card">
-          <div className="comp-badge gdpr">GDPR</div>
+          <div className="comp-badge">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/compliance-gdpr.webp" alt="GDPR compliance badge" loading="lazy" />
+          </div>
           <h3>GDPR</h3>
           <p>
             Fully compliant with the EU&apos;s General Data Protection
@@ -27,7 +33,10 @@ export default function Compliance() {
           </p>
         </div>
         <div className="comp-card">
-          <div className="comp-badge ccpa">CCPA</div>
+          <div className="comp-badge">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/compliance-ccpa.webp" alt="CCPA compliance badge" loading="lazy" />
+          </div>
           <h3>CCPA</h3>
           <p>
             We comply with the California Consumer Privacy Act, protecting the
