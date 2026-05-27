@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import LiveDataFlow from "./livedata/LiveDataFlow";
 
 export default function Pillars() {
   const ref = useRef<HTMLDivElement>(null);
@@ -42,9 +43,9 @@ export default function Pillars() {
           <div className="step-text">
             <div className="step-pill">Real time sourcing</div>
             <h3 className="step-headline">
-              Find more qualified
+              100% qualified leads.
               <br />
-              leads. Instantly.
+              AI backed.
             </h3>
             <p className="step-body">
               Apollo, ZoomInfo and other databases miss 30% of the people you
@@ -59,25 +60,7 @@ export default function Pillars() {
             <a href="#" className="step-cta">Discover our list builder →</a>
           </div>
           <div className="step-mock-wrap">
-            <div className="step-phone">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/telephone.png" alt="" />
-            </div>
-            <div className="step-mock">
-              <div className="mock-hidden-bar">
-                <div className="lbl">HIDDEN MARKET</div>
-                <div className="num">24,328,505</div>
-                <div className="cap">LEADS · GROWING LIVE</div>
-              </div>
-              <div className="mock-people-grid">
-                {Array.from({ length: 25 }).map((_, i) => {
-                  // lit pattern from V0
-                  const lit = [10, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].includes(i);
-                  return <div key={i} className={`p${lit ? " lit" : ""}`} />;
-                })}
-              </div>
-              <div className="mock-grid-foot">+30% LEADS OTHER TOOLS MISS</div>
-            </div>
+            <LiveDataFlow />
           </div>
         </article>
 
@@ -87,9 +70,9 @@ export default function Pillars() {
           <div className="step-text">
             <div className="step-pill">Enrichment</div>
             <h3 className="step-headline">
-              100% verified
+              100% phone numbers.
               <br />
-              phone numbers.
+              Community backed.
             </h3>
             <p className="step-body">
               One provider misses half the numbers. Pipecorn runs waterfall
@@ -104,10 +87,6 @@ export default function Pillars() {
             <a href="#" className="step-cta">Discover our waterfall →</a>
           </div>
           <div className="step-mock-wrap">
-            <div className="step-phone">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/telephone.png" alt="" />
-            </div>
             <div className="step-mock">
               <div className="mock-contact">
                 <div className="dots"><span></span><span></span><span></span></div>
@@ -153,10 +132,6 @@ export default function Pillars() {
             <a href="#" className="step-cta">Detect new hires →</a>
           </div>
           <div className="step-mock-wrap">
-            <div className="step-phone">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/telephone.png" alt="" />
-            </div>
             <div className="step-mock mock-step3">
               <div className="mock-center">
                 <div className="mock-radar"><div className="ph"></div></div>
@@ -196,10 +171,6 @@ export default function Pillars() {
             <a href="#" className="step-cta">Discover our integrations →</a>
           </div>
           <div className="step-mock-wrap">
-            <div className="step-phone">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/telephone.png" alt="" />
-            </div>
             <div className="step-mock">
               <div className="mock-center">
                 <div className="mock-pronto">

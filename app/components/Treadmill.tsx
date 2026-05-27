@@ -3,50 +3,38 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Treadmill() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [playing, setPlaying] = useState(false);
 
-  // Scroll progress through the pin track (0 → 1 while the section is pinned).
+  // Fire the sketch → real animation once the section is scrolled into view,
+  // then let it play on its own timeline (no further scrolling needed).
   useEffect(() => {
-    const el = trackRef.current;
+    const el = sectionRef.current;
     if (!el) return;
 
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      // Distance we can scroll while the sticky child stays pinned.
-      const total = el.offsetHeight - vh;
-      // How far the track top has moved above the viewport top.
-      const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
-      setProgress(total > 0 ? scrolled / total : 0);
-    };
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setPlaying(true);
+      return;
+    }
 
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    update();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setPlaying(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
-  const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
-  // Title crossfade window: old title fades out, new one fades in between 30%–70%.
-  const t = clamp((progress - 0.3) / 0.4);
-  // Belt reveals left → right over the first part of the scroll.
-  const beltP = clamp(progress / 0.5);
-  // Bucket reveals bottom → top once the belt is (almost) done.
-  const bucketP = clamp((progress - 0.5) / 0.4);
-
   return (
-    <div className="treadmill-pin-track" ref={trackRef}>
+    <div className="treadmill-pin-track">
       <div className="treadmill-sticky">
         {/* POPCORN CLOUD TRANSITION */}
         <div className="popcorn-cloud-transition">
@@ -58,7 +46,7 @@ export default function Treadmill() {
           </svg>
         </div>
 
-        <section className="anywhere">
+        <section className={`anywhere${playing ? " playing" : ""}`} ref={sectionRef}>
           <div className="anywhere-pills">
             <span className="pill">
               <svg viewBox="0 0 24 24" fill="currentColor">
@@ -106,18 +94,12 @@ export default function Treadmill() {
             style={{ maxWidth: 1280, marginRight: "auto", textAlign: "left" }}
           >
             <div className="anywhere-title">
-              <h2
-                className="title-swap"
-                style={{ opacity: 1 - t, transform: `translateY(${-t * 18}px)` }}
-              >
+              <h2 className="title-swap">
                 You&apos;re missing out
                 <br />
                 50% of your pipeline.
               </h2>
-              <h2
-                className="title-swap title-swap--alt"
-                style={{ opacity: t, transform: `translateY(${(1 - t) * 18}px)` }}
-              >
+              <h2 className="title-swap title-swap--alt">
                 Unlock 50%
                 <br />
                 of your pipeline.
@@ -143,7 +125,6 @@ export default function Treadmill() {
               className="treadmill-belt treadmill-belt--real"
               src="/assets/treadmill-real.png"
               alt=""
-              style={{ clipPath: `inset(0 ${(1 - beltP) * 100}% 0 0)` }}
             />
 
             <div className="bucket-runner">
@@ -152,12 +133,7 @@ export default function Treadmill() {
               <img className="bucket-img full" src="/assets/bucket-full.png" alt="" />
               {/* Realistic bucket (after) — revealed from bottom to top */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="bucket-img real"
-                src="/assets/bucket-real.png"
-                alt=""
-                style={{ clipPath: `inset(${(1 - bucketP) * 100}% 0 0 0)` }}
-              />
+              <img className="bucket-img real" src="/assets/bucket-real.png" alt="" />
             </div>
 
             <div className="bucket-tags" aria-hidden="true">
