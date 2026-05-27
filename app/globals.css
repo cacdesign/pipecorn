@@ -357,15 +357,18 @@
   /* Treadmill pinned-scroll section.
      The tall track gives one extra viewport of scroll during which the inner
      sticky child stays full-screen and the H2 title swaps. */
+  /* Treadmill section. Previously pinned via a 200vh track + sticky child so
+     the user had to scroll an extra viewport while the animation played.
+     The animation is now purely time-based (IntersectionObserver triggers
+     once at 60% in-view), so we let the section flow normally — scroll is
+     no longer blocked. */
   .treadmill-pin-track {
     position: relative;
     z-index: 10;
-    height: 200vh;
   }
   .treadmill-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    position: relative;
+    min-height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -940,18 +943,22 @@
     max-width: 1200px;
     margin: 0 auto;
   }
+  /* Hand-drawn sketch line. A 14×64 tile (wider + 5× taller than before) hides
+     the tile seam by spacing repeats far apart and using an irregular wobble
+     across 4 control points. A faint ghost stroke offset by 1px gives the
+     "drawn twice with a pencil" effect. */
   .works-timeline::before {
     content: "";
     position: absolute;
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 2px;
+    width: 14px;
     transform: translateX(-50%);
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='12' viewBox='0 0 6 12'%3E%3Cpath d='M3 0 Q1 3 3 6 Q5 9 3 12' stroke='%23251E00' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='64' viewBox='0 0 14 64'%3E%3Cpath d='M7 0 Q10 8 6 16 Q3 24 8 32 Q10 40 5 48 Q3 56 8 64' stroke='%23251E00' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3Cpath d='M7 1 Q9 9 7 17 Q4 25 8 33 Q9 41 6 49 Q4 57 7 64' stroke='%23251E00' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.45'/%3E%3C/svg%3E");
     background-repeat: repeat-y;
-    background-size: 6px 12px;
-    opacity: 0.85;
+    background-size: 14px 64px;
+    opacity: 0.4;
   }
   .work-step {
     position: relative;
@@ -971,8 +978,8 @@
   .step-num {
     position: absolute;
     left: 50%;
-    top: 80px;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -1010,12 +1017,27 @@
     border-radius: 50%;
     background: var(--red);
   }
+  /* Sketch-style pill image — replaces the geometric .step-pill with a
+     hand-drawn JPEG. The cream of the JPEG matches the section background,
+     so the rectangular bounding box is invisible. */
+  .step-pill-sketch {
+    display: block;
+    height: 56px;
+    width: auto;
+    margin: 0 0 24px -10px; /* negative left pulls the sketch border flush */
+    user-select: none;
+    pointer-events: none;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  @media (max-width: 900px) {
+    .step-pill-sketch { height: 46px; margin-left: -6px; }
+  }
   .step-headline {
     font-family: 'Outfit', sans-serif;
     font-size: clamp(32px, 3.6vw, 46px);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -1.5px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
     color: var(--dark);
     margin: 0 0 24px;
   }
@@ -1044,6 +1066,81 @@
     color: var(--dark);
     font-weight: 700;
     margin-right: 4px;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────
+     Tabs-behind-CTA "intercalaire" interaction. Tags are absolutely
+     positioned ABOVE the CTA but BEHIND it via z-index, so only their
+     top portion peeks above the CTA's top edge — like file folder tabs.
+     Each tab is compact in default state (shows only its <strong> word).
+     On hover of the wrap, tabs lift up to clear the CTA AND the hidden
+     .tag-rest text expands horizontally to reveal the full label.
+     Touch-only devices skip the hover gimmick — tabs sit fully above
+     the CTA, expanded, at all times.
+     ────────────────────────────────────────────────────────────────────── */
+  .step-cta-wrap {
+    position: relative;
+    display: inline-block;
+    margin-top: 4px;
+    padding-top: 32px;            /* room for tabs to peek above CTA — needs
+                                     to be at least ~30px so the strong text
+                                     (centered at y=20 in a 40px tag) is
+                                     fully visible, not just the rounded top */
+  }
+  .step-cta-wrap .step-cta {
+    position: relative;
+    z-index: 2;                   /* in front of tabs */
+  }
+  .step-cta-wrap .step-tags {
+    position: absolute;
+    top: 0;
+    left: 18px;                   /* slight indent so tabs aren't flush with the CTA's rounded edge */
+    right: auto;
+    margin: 0;
+    z-index: 1;                   /* behind CTA */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Cancel <strong>'s always-on right gap so the compact tab is tight */
+  .step-cta-wrap .step-tag strong { margin-right: 0; }
+  .step-cta-wrap .tag-rest {
+    display: inline-block;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    margin-left: 0;
+    transition:
+      max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+      opacity 0.3s ease 0.05s,
+      margin-left 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+  }
+  @media (hover: hover) {
+    .step-cta-wrap:hover .step-tags {
+      transform: translateY(-26px);   /* lift tabs fully above CTA */
+    }
+    .step-cta-wrap:hover .tag-rest {
+      max-width: 260px;
+      opacity: 1;
+      margin-left: 4px;
+    }
+    /* Stagger the rest-reveal across tabs */
+    .step-cta-wrap:hover .step-tag:nth-child(1) .tag-rest { transition-delay: 0.18s; }
+    .step-cta-wrap:hover .step-tag:nth-child(2) .tag-rest { transition-delay: 0.24s; }
+    .step-cta-wrap:hover .step-tag:nth-child(3) .tag-rest { transition-delay: 0.30s; }
+  }
+  /* Touch fallback: tabs always fully above CTA, expanded. No translation
+     needed — we just make room with padding-top equal to tag height + gap. */
+  @media (hover: none) {
+    .step-cta-wrap { padding-top: 60px; }
+    .step-cta-wrap .step-tags { transform: none; }
+    .step-cta-wrap .tag-rest {
+      max-width: none;
+      opacity: 1;
+      margin-left: 4px;
+    }
   }
   .step-cta {
     display: inline-flex;
@@ -1288,7 +1385,7 @@
     .works-intro { margin-bottom: 60px; }
     .works-timeline::before { left: 28px; }
     .work-step { grid-template-columns: 1fr; gap: 32px; padding: 56px 0 56px 70px; }
-    .step-num { left: 28px; top: 56px; transform: translate(-50%, 0); width: 44px; height: 44px; font-size: 13px; }
+    .step-num { left: 28px; top: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; font-size: 13px; }
     .step-text { padding-right: 0; }
   }
 
