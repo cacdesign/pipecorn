@@ -355,23 +355,26 @@
   }
 
   /* Treadmill pinned-scroll section.
-     The tall track gives one extra viewport of scroll during which the inner
-     sticky child stays full-screen and the H2 title swaps. */
-  /* Treadmill section. Previously pinned via a 200vh track + sticky child so
-     the user had to scroll an extra viewport while the animation played.
-     The animation is now purely time-based (IntersectionObserver triggers
-     once at 60% in-view), so we let the section flow normally — scroll is
-     no longer blocked. */
+     The tall track gives extra scroll distance during which the inner sticky
+     child stays full-screen. The transformation animation only launches once
+     the user has scrolled a bit into the pinned zone (lead-in), so the section
+     "blocks" briefly before playing. */
   .treadmill-pin-track {
     position: relative;
     z-index: 10;
+    height: 220vh;
   }
   .treadmill-sticky {
-    position: relative;
-    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+  }
+  @media (max-width: 900px) {
+    .treadmill-pin-track { height: auto; }
+    .treadmill-sticky { position: relative; min-height: 100vh; height: auto; }
   }
 
   /* Two H2s stacked so they can crossfade into each other */
@@ -1002,6 +1005,15 @@
   .step-text {
     padding-right: 40px;
   }
+  /* Alternate the layout: even steps put the illustration on the left */
+  .work-step:nth-child(even) .step-text {
+    order: 2;
+    padding-right: 0;
+    padding-left: 40px;
+  }
+  .work-step:nth-child(even) .step-mock-wrap {
+    order: 1;
+  }
   .step-pill {
     display: inline-flex;
     align-items: center;
@@ -1098,12 +1110,16 @@
   }
   .step-mock {
     position: relative;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
     aspect-ratio: 1 / 1.05;
     background: var(--dark);
     padding: 40px 32px 32px;
     color: var(--cream);
     overflow: hidden;
     border-radius: 24px;
+    box-sizing: border-box;
   }
   /* Step 1 mock */
   .mock-hidden-bar {
@@ -3800,7 +3816,7 @@
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
-  background: #100D06;
+  background: var(--dark);
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 24px;
   padding: 28px 26px;
@@ -3875,7 +3891,7 @@
 .wf__list::before {
   content: "";
   position: absolute;
-  left: 14px;
+  left: 15px;
   top: 20px;
   bottom: 20px;
   width: 2px;
@@ -3897,10 +3913,10 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 .wf__icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3909,8 +3925,8 @@
   position: relative;
   z-index: 1;
 }
-.wf__icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.wf__name { flex: 1 1 auto; font-size: 13.5px; font-weight: 400; color: var(--cream); }
+.wf__icon img { width: 18px; height: 18px; border-radius: 4px; object-fit: contain; display: block; }
+.wf__name { flex: 0 0 auto; font-size: 13.5px; font-weight: 400; color: var(--cream); }
 .wf__row.is-dim .wf__name { color: rgba(255,248,231,0.42); }
 .wf__row.is-dim .wf__icon { opacity: 0.85; }
 .wf__more {
@@ -3934,7 +3950,7 @@
 }
 
 /* Verdict badges (extends .ldf__badge) */
-.wf__chips { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+.wf__chips { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; justify-content: flex-start; }
 .wf .ldf__badge { padding: 4px 9px; font-size: 11px; }
 .wf .ldf__badge.is-no {
   background: rgba(239,68,68,0.16);
@@ -3953,6 +3969,187 @@
   .wf__more,
   .wf__fieldVal { animation: none; opacity: 1; transform: none; filter: none; }
   .wf__reload.is-spinning { animation: none; }
+}
+
+/* ── Signal detection (step 4) — live call over a photo ──────────────── */
+.scf {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1.2;
+  border-radius: 24px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.scf__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.scf__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(15,11,3,0.35) 0%, rgba(15,11,3,0) 30%),
+    linear-gradient(0deg, rgba(15,11,3,0.85) 0%, rgba(15,11,3,0) 55%);
+}
+.scf__pills {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.scf__pill {
+  position: absolute;
+  display: inline-block;
+  background: #FFB35C;
+  color: #2A1A00;
+  font-family: var(--font-ui, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 7px 14px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+  opacity: 0;
+  transform: rotate(var(--rot, 0deg)) scale(0.7) translateY(6px);
+  transform-origin: center;
+}
+.scf__pill.is-on {
+  animation: scfPillPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes scfPillPop {
+  0%   { opacity: 0; transform: rotate(var(--rot)) scale(0.7) translateY(6px); }
+  100% { opacity: 1; transform: rotate(var(--rot)) scale(1) translateY(0); }
+}
+.scf__pillMark {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: -8px;
+  width: calc(100% - 12px);
+  height: 13px;
+  color: #E2721A;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+}
+.scf__card {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+  background: rgba(17,13,6,0.82);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  padding: 14px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.scf__cardHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.scf__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui, 'Inter', sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #FF6B6B;
+}
+.scf__liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF5F57;
+  animation: scfPulse 1.2s ease-in-out infinite;
+}
+@keyframes scfPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,95,87,0.5); }
+  50%      { opacity: 0.55; box-shadow: 0 0 0 5px rgba(255,95,87,0); }
+}
+.scf__callee {
+  font-family: var(--font-ui, 'Inter', sans-serif);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255,248,231,0.8);
+}
+.scf__thread {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.scf__bubble {
+  max-width: 80%;
+  padding: 9px 13px;
+  border-radius: 15px;
+  font-family: var(--font-ui, 'Inter', sans-serif);
+  font-size: 13px;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+}
+.scf__bubble.is-on {
+  animation: scfBubbleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes scfBubbleIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.scf__bubble.is-rep {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.12);
+  color: var(--cream);
+  border-bottom-left-radius: 5px;
+}
+.scf__bubble.is-lead {
+  align-self: flex-end;
+  background: #FFB35C;
+  color: #2A1A00;
+  font-weight: 600;
+  border-bottom-right-radius: 5px;
+}
+.scf__typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 11px 14px;
+}
+.scf__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+  animation: scfTyping 1s ease-in-out infinite;
+}
+.scf__typing.is-rep .scf__dot { color: var(--cream); }
+.scf__typing.is-lead .scf__dot { color: #2A1A00; }
+.scf__dot:nth-child(2) { animation-delay: 0.16s; }
+.scf__dot:nth-child(3) { animation-delay: 0.32s; }
+@keyframes scfTyping {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-3px); opacity: 0.9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scf__pill.is-on,
+  .scf__bubble.is-on { animation: none; opacity: 1; transform: rotate(var(--rot, 0deg)); }
+  .scf__liveDot,
+  .scf__dot { animation: none; }
 }
 
 /* ── Import companies ────────────────────────────────────────────────── */

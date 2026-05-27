@@ -54,7 +54,7 @@ const PROVIDERS_REL: Provider[] = [
     stages: [
       { at: 0, chips: [SEARCH()] },
       { at: 700, chips: [FOUND("Email found")] },
-      { at: 1300, chips: [FOUND("Email found"), SEARCH("Verifying")] },
+      { at: 1300, chips: [FOUND("Email found"), SEARCH("Bounce Verifying")] },
       { at: 2050, chips: [{ kind: "badge", tone: "no", mark: "✕", label: "Invalid email" }] },
     ],
   },
@@ -64,9 +64,7 @@ const PROVIDERS_REL: Provider[] = [
     glow: "#F97316",
     stages: [
       { at: 0, chips: [SEARCH()] },
-      { at: 700, chips: [FOUND("Phone found")] },
-      { at: 1300, chips: [FOUND("Phone found"), SEARCH("Verifying")] },
-      { at: 2050, chips: [{ kind: "badge", tone: "no", mark: "✕", label: "Invalid phone" }] },
+      { at: 700, chips: [{ kind: "badge", tone: "raw", mark: "✕", label: "Not found" }] },
     ],
   },
   {
@@ -75,7 +73,9 @@ const PROVIDERS_REL: Provider[] = [
     glow: "#4C6FFF",
     stages: [
       { at: 0, chips: [SEARCH()] },
-      { at: 900, chips: [VERIFIED("Verified email found")] },
+      { at: 700, chips: [FOUND("Email found")] },
+      { at: 1300, chips: [FOUND("Email found"), SEARCH("Bounce Verifying")] },
+      { at: 2050, chips: [VERIFIED("Verified email found")] },
     ],
   },
   {
@@ -85,8 +85,8 @@ const PROVIDERS_REL: Provider[] = [
     stages: [
       { at: 0, chips: [SEARCH()] },
       { at: 700, chips: [FOUND("Phone found")] },
-      { at: 1300, chips: [FOUND("Phone found"), SEARCH("Verifying")] },
-      { at: 2050, chips: [FOUND("Phone found"), VERIFIED("Verified phone found")] },
+      { at: 1300, chips: [FOUND("Phone found"), SEARCH("Community Verifying")] },
+      { at: 2050, chips: [VERIFIED("Verified phone found")] },
     ],
   },
 ];
@@ -224,10 +224,7 @@ export default function WaterfallFlow() {
                   className={"wf__row" + (p.dim ? " is-dim" : "")}
                   style={{ animationDelay: `${p.stages[0].at / 1000}s` }}
                 >
-                  <span
-                    className="wf__icon"
-                    style={{ boxShadow: `0 0 14px ${p.glow}55` }}
-                  >
+                  <span className="wf__icon">
                     <img src={fav(p.domain)} alt="" />
                   </span>
                   <span className="wf__name">{p.name}</span>

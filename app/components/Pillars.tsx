@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import LiveDataFlow from "./livedata/LiveDataFlow";
 import WaterfallFlow from "./livedata/WaterfallFlow";
+import SignalCallFlow from "./livedata/SignalCallFlow";
 
 export default function Pillars() {
   const ref = useRef<HTMLDivElement>(null);
@@ -90,42 +91,6 @@ export default function Pillars() {
           <div className="step-num">03</div>
           <div className="step-text">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="step-pill-sketch" src="/assets/pill-uniform-signal-detection.jpeg" alt="Signal detection" />
-            <h3 className="step-headline">
-              Call before
-              <br />
-              your competitors.
-            </h3>
-            <p className="step-body">
-              New hire. Job change. ICP match. The moment a buying signal fires,
-              your rep is first, before the contact updates their LinkedIn,
-              before your competitor picks up the phone.
-            </p>
-            <a href="#" className="step-cta">Detect new hires →</a>
-          </div>
-          <div className="step-mock-wrap">
-            <div className="step-mock mock-step3">
-              <div className="mock-center">
-                <div className="mock-radar"><div className="ph"></div></div>
-                <div className="mock-live">LIVE signals</div>
-                <div className="mock-signal-row">
-                  <span className="sig-btn red">👤 New hire</span>
-                  <span className="sig-btn yel">📈 Promoted</span>
-                </div>
-                <div className="mock-signal-row">
-                  <span className="sig-btn blue">⚙ Follow competitor</span>
-                </div>
-                <div className="mock-foot-yel">+247 THIS WEEK</div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        {/* STEP 04 */}
-        <article className="work-step">
-          <div className="step-num">04</div>
-          <div className="step-text">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="step-pill-sketch" src="/assets/pill-uniform-delivery.jpeg" alt="Delivery" />
             <h3 className="step-headline">
               Full pipeline
@@ -158,6 +123,29 @@ export default function Pillars() {
                 <div className="mock-synced">SYNCED · 08:03 AM</div>
               </div>
             </div>
+          </div>
+        </article>
+
+        {/* STEP 04 */}
+        <article className="work-step">
+          <div className="step-num">04</div>
+          <div className="step-text">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="step-pill-sketch" src="/assets/pill-uniform-signal-detection.jpeg" alt="Signal detection" />
+            <h3 className="step-headline">
+              Call before
+              <br />
+              your competitors.
+            </h3>
+            <p className="step-body">
+              New hire. Job change. ICP match. The moment a buying signal fires,
+              your rep is first, before the contact updates their LinkedIn,
+              before your competitor picks up the phone.
+            </p>
+            <a href="#" className="step-cta">Detect new hires →</a>
+          </div>
+          <div className="step-mock-wrap">
+            <SignalCallFlow />
           </div>
         </article>
       </div>

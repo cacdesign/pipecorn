@@ -2,15 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// How far into the pinned zone the user must scroll before the sketch → real
+// transformation launches. The section pins and "blocks" for this fraction of
+// the extra scroll distance first.
+const LEAD_IN = 0.22;
+
 export default function Treadmill() {
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  // Fire the sketch → real animation once the section is scrolled into view,
-  // then let it play on its own timeline (no further scrolling needed).
+  // The section pins (sticky) while the user scrolls through the tall track.
+  // Once they've scrolled past the lead-in threshold, fire the sketch → real
+  // animation, which then plays on its own timeline.
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
+    const track = trackRef.current;
+    if (!track) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
@@ -18,23 +25,47 @@ export default function Treadmill() {
       return;
     }
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setPlaying(true);
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    let raf = 0;
+    let done = false;
+
+    const check = () => {
+      raf = 0;
+      const scrollable = track.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) {
+        // No pin room (e.g. mobile) — just play when the track is in view.
+        if (track.getBoundingClientRect().top < window.innerHeight * 0.6) {
+          done = true;
+          setPlaying(true);
+          cleanup();
+        }
+        return;
+      }
+      const scrolled = Math.min(Math.max(-track.getBoundingClientRect().top, 0), scrollable);
+      if (scrolled / scrollable >= LEAD_IN) {
+        done = true;
+        setPlaying(true);
+        cleanup();
+      }
+    };
+
+    const onScroll = () => {
+      if (!raf && !done) raf = window.requestAnimationFrame(check);
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    check();
+    return cleanup;
   }, []);
 
   return (
-    <div className="treadmill-pin-track">
+    <div className="treadmill-pin-track" ref={trackRef}>
       <div className="treadmill-sticky">
         {/* POPCORN CLOUD TRANSITION */}
         <div className="popcorn-cloud-transition">

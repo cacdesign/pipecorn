@@ -48,7 +48,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=200&q=80",
     name: "Sylvain Bellemare",
     role: "Sales Lead · FormulaNow",
-    body: "We tried Apollo, ZoomInfo, Lusha. Pipecorn buries them on phone quality. <strong>9.3 / 10 contacts reach a real human.</strong>",
+    body: "We tried Apollo, ZoomInfo, Lusha. Pipecorn buries them on phone quality. 9.3 / 10 contacts reach a real human.",
     reactions: [
       { emoji: "🔥", count: 7 },
       { emoji: "🚀", count: 3 },
@@ -70,7 +70,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&q=80",
     name: "Étienne Marchal",
     role: "CRO · L'Escadrille",
-    body: "First week with Pipecorn: <strong>+22% pipeline</strong> with zero new headcount. The waterfall is the unfair part.",
+    body: "First week with Pipecorn: +22% pipeline with zero new headcount. The waterfall is the unfair part.",
     reactions: [
       { emoji: "🔥", count: 5 },
       { emoji: "🤝", count: 4 },
@@ -83,7 +83,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=200&q=80",
     name: "Guillaume Vidal",
     role: "Founder · each One",
-    body: "We catch new hires in 24h. Our SDRs reach them <strong>before LinkedIn updates</strong>. Pipecorn is the calendar of the warm market.",
+    body: "We catch new hires in 24h. Our SDRs reach them before LinkedIn updates. Pipecorn is the calendar of the warm market.",
     reactions: [
       { emoji: "🚀", count: 8 },
       { emoji: "🔥", count: 2 },
@@ -109,7 +109,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=200&q=80",
     name: "Carla Ruiz",
     role: "VP Growth · FoodCheri",
-    body: "Pipecorn replaced 4 vendors. <strong>−68% data spend</strong>. Sales love it. Finance loves it more.",
+    body: "Pipecorn replaced 4 vendors. −68% data spend. Sales love it. Finance loves it more.",
     reactions: [
       { emoji: "🔥", count: 11 },
       { emoji: "💰", count: 4 },
@@ -121,7 +121,7 @@ const CARDS: Card[] = [
     photo:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80",
     quote:
-      "<strong>15% of our new pipeline</strong> last quarter came from new hires. We wouldn't have spotted them without Pipecorn.",
+      "15% of our new pipeline last quarter came from new hires. We wouldn't have spotted them without Pipecorn.",
     name: "Baptiste Roux",
     role: "Sales Director · Uber Eats",
   },
@@ -144,7 +144,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1573497161161-c3e73707e25c?auto=format&fit=crop&w=200&q=80",
     name: "Julieta Hernández",
     role: "Head of Outbound · Urbyn",
-    body: "The signal layer alone is worth the subscription. We call champions on the day they change job. <strong>40% answer rate</strong>.",
+    body: "The signal layer alone is worth the subscription. We call champions on the day they change job. 40% answer rate.",
     reactions: [
       { emoji: "🔥", count: 6 },
       { emoji: "🎯", count: 4 },
@@ -157,7 +157,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80",
     name: "Ben Cohen",
     role: "Head of Sales Ops · Comeen",
-    body: "I've been doing GTM ops for 12 years. Pipecorn is the cleanest CRM-sync I've ever wired up. <strong>10 min setup.</strong>",
+    body: "I've been doing GTM ops for 12 years. Pipecorn is the cleanest CRM-sync I've ever wired up. 10 min setup.",
     reactions: [
       { emoji: "🤝", count: 7 },
       { emoji: "🔥", count: 2 },
@@ -170,7 +170,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=200&q=80",
     name: "Thomas Bartelt",
     role: "GTM Engineer · Qevlar AI",
-    body: "We book <strong>50+ Enterprise meetings/month</strong> by catching new CISOs on day 1. <strong>85% connect rate</strong>.",
+    body: "We book <strong>50+ Enterprise meetings/month</strong> by catching new CISOs on day 1. 85% connect rate.",
     reactions: [
       { emoji: "🚀", count: 14 },
       { emoji: "🎯", count: 6 },
@@ -183,7 +183,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80",
     name: "Quentin Kozyra",
     role: "Head of GTM · Hyperline",
-    body: "We catch champion job changes <strong>before LinkedIn updates</strong>. That's the unfair advantage.",
+    body: "We catch champion job changes before LinkedIn updates. That's the unfair advantage.",
     reactions: [
       { emoji: "🔥", count: 8 },
       { emoji: "🤝", count: 3 },
@@ -196,7 +196,7 @@ const CARDS: Card[] = [
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
     name: "Alex Jaglale",
     role: "VP Sales · Scalefast",
-    body: "<strong>+27% closed-won.</strong> Pipecorn pays for itself every Monday morning.",
+    body: "+27% closed-won. Pipecorn pays for itself every Monday morning.",
     reactions: [
       { emoji: "💰", count: 5 },
       { emoji: "🔥", count: 4 },
