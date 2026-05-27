@@ -42,7 +42,8 @@ export default function Pillars() {
         <article className="work-step">
           <div className="step-num">01</div>
           <div className="step-text">
-            <div className="step-pill">Real time sourcing</div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="step-pill-sketch" src="/assets/pill-uniform-real-time-sourcing.jpeg" alt="Real time sourcing" />
             <h3 className="step-headline">
               100% qualified leads.
               <br />
@@ -54,11 +55,13 @@ export default function Pillars() {
               source for 100% of your TAM, then AI-cleans every record against
               your ICP — so your reps only see leads worth dialing.
             </p>
-            <div className="step-tags">
-              <span className="step-tag"><strong>+30%</strong>people</span>
-              <span className="step-tag"><strong>5 min</strong>to build a list</span>
+            <div className="step-cta-wrap">
+              <a href="#" className="step-cta">Discover our list builder →</a>
+              <div className="step-tags">
+                <span className="step-tag"><strong>+30%</strong><span className="tag-rest">people</span></span>
+                <span className="step-tag"><strong>5 min</strong><span className="tag-rest">to build a list</span></span>
+              </div>
             </div>
-            <a href="#" className="step-cta">Discover our list builder →</a>
           </div>
           <div className="step-mock-wrap">
             <LiveDataFlow />
@@ -69,7 +72,8 @@ export default function Pillars() {
         <article className="work-step">
           <div className="step-num">02</div>
           <div className="step-text">
-            <div className="step-pill">Enrichment</div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="step-pill-sketch" src="/assets/pill-uniform-enrichment.jpeg" alt="Enrichment" />
             <h3 className="step-headline">
               100% phone numbers.
               <br />
@@ -80,12 +84,14 @@ export default function Pillars() {
               enrichment across 100+ providers simultaneously. Every contact
               comes out verified. No gaps. No bounces.
             </p>
-            <div className="step-tags">
-              <span className="step-tag"><strong>100+</strong>providers</span>
-              <span className="step-tag"><strong>10×</strong>verified phones</span>
-              <span className="step-tag"><strong>0</strong>bounces</span>
+            <div className="step-cta-wrap">
+              <a href="#" className="step-cta">Discover our waterfall →</a>
+              <div className="step-tags">
+                <span className="step-tag"><strong>100+</strong><span className="tag-rest">providers</span></span>
+                <span className="step-tag"><strong>10×</strong><span className="tag-rest">verified phones</span></span>
+                <span className="step-tag"><strong>0</strong><span className="tag-rest">bounces</span></span>
+              </div>
             </div>
-            <a href="#" className="step-cta">Discover our waterfall →</a>
           </div>
           <div className="step-mock-wrap">
             <WaterfallFlow />
@@ -96,7 +102,8 @@ export default function Pillars() {
         <article className="work-step">
           <div className="step-num">03</div>
           <div className="step-text">
-            <div className="step-pill">Signal detection</div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="step-pill-sketch" src="/assets/pill-uniform-signal-detection.jpeg" alt="Signal detection" />
             <h3 className="step-headline">
               Call before
               <br />
@@ -107,11 +114,13 @@ export default function Pillars() {
               your rep is first, before the contact updates their LinkedIn,
               before your competitor picks up the phone.
             </p>
-            <div className="step-tags">
-              <span className="step-tag"><strong>Real-time</strong>signal alerts</span>
-              <span className="step-tag"><strong>Champion</strong>move tracking</span>
+            <div className="step-cta-wrap">
+              <a href="#" className="step-cta">Detect new hires →</a>
+              <div className="step-tags">
+                <span className="step-tag"><strong>Real-time</strong><span className="tag-rest">signal alerts</span></span>
+                <span className="step-tag"><strong>Champion</strong><span className="tag-rest">move tracking</span></span>
+              </div>
             </div>
-            <a href="#" className="step-cta">Detect new hires →</a>
           </div>
           <div className="step-mock-wrap">
             <div className="step-mock mock-step3">
@@ -135,7 +144,8 @@ export default function Pillars() {
         <article className="work-step">
           <div className="step-num">04</div>
           <div className="step-text">
-            <div className="step-pill">Delivery</div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="step-pill-sketch" src="/assets/pill-uniform-delivery.jpeg" alt="Delivery" />
             <h3 className="step-headline">
               Full pipeline
               <br />
@@ -146,11 +156,13 @@ export default function Pillars() {
               the first coffee. Auto-enrolled in sequence. Your reps open their
               CRM. The work is done. They just call.
             </p>
-            <div className="step-tags">
-              <span className="step-tag"><strong>HubSpot</strong>& Salesforce sync</span>
-              <span className="step-tag"><strong>Auto</strong>sequence enrollment</span>
+            <div className="step-cta-wrap">
+              <a href="#" className="step-cta">Discover our integrations →</a>
+              <div className="step-tags">
+                <span className="step-tag"><strong>HubSpot</strong><span className="tag-rest">& Salesforce sync</span></span>
+                <span className="step-tag"><strong>Auto</strong><span className="tag-rest">sequence enrollment</span></span>
+              </div>
             </div>
-            <a href="#" className="step-cta">Discover our integrations →</a>
           </div>
           <div className="step-mock-wrap">
             <div className="step-mock">
