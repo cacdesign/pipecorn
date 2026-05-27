@@ -714,6 +714,7 @@
   .anywhere-copy {
     position: relative;
     z-index: 4;
+    margin-bottom: 96px;        /* breathing room between the CTA button and the conveyor belt below */
   }
   .anywhere-copy h2 {
     font-family: 'Outfit', sans-serif;
@@ -740,10 +741,14 @@
   }
   .anywhere .btn-pill.btn-watch:hover { background: #fff; }
 
-  /* Treadmill / conveyor with empty bucket */
+  /* Treadmill / conveyor with empty bucket.
+     Full-bleed both sides: cancels the .anywhere section's 48px horizontal
+     padding so the belt runs from screen edge to screen edge. */
   .treadmill {
     position: relative;
-    width: 100%;
+    width: calc(100% + 96px);
+    margin-left: -48px;
+    margin-right: -48px;
     height: 220px;
     margin-top: auto;
     margin-bottom: 120px;
@@ -775,11 +780,12 @@
     to   { clip-path: inset(0 0 0 0); }
   }
 
-  /* Static popcorn bucket resting on the belt, offset to the right */
+  /* Static popcorn bucket resting on the belt, offset to the right. */
   .bucket-runner {
     position: absolute;
-    left: 76%;
-    bottom: 86px;
+    left: 64%;        /* was 76% — too far right, looked like it was falling off */
+    bottom: 118px;    /* was 86px — lifted so the bucket sits ON the belt surface
+                         instead of sinking between two rollers */
     width: 180px;
     height: 210px;
     transform: translateX(-50%);
@@ -815,11 +821,11 @@
     .anywhere-grid { grid-template-columns: 1fr; gap: 56px; }
   }
 
-  /* Checked value tags, stacked above the bucket */
+  /* Checked value tags, stacked above the bucket — keep aligned with .bucket-runner. */
   .bucket-tags {
     position: absolute;
-    left: 76%;
-    bottom: 300px;
+    left: 64%;
+    bottom: 340px;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
@@ -1048,100 +1054,7 @@
     margin: 0 0 28px;
     max-width: 480px;
   }
-  .step-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 32px;
-  }
-  .step-tag {
-    background: #FFFFFF;
-    border: 1px solid rgba(37, 30, 0, 0.08);
-    border-radius: 999px;
-    padding: 10px 18px;
-    font-size: 14px;
-    color: var(--soft);
-  }
-  .step-tag strong {
-    color: var(--dark);
-    font-weight: 700;
-    margin-right: 4px;
-  }
 
-  /* ──────────────────────────────────────────────────────────────────────
-     Tabs-behind-CTA "intercalaire" interaction. Tags are absolutely
-     positioned ABOVE the CTA but BEHIND it via z-index, so only their
-     top portion peeks above the CTA's top edge — like file folder tabs.
-     Each tab is compact in default state (shows only its <strong> word).
-     On hover of the wrap, tabs lift up to clear the CTA AND the hidden
-     .tag-rest text expands horizontally to reveal the full label.
-     Touch-only devices skip the hover gimmick — tabs sit fully above
-     the CTA, expanded, at all times.
-     ────────────────────────────────────────────────────────────────────── */
-  .step-cta-wrap {
-    position: relative;
-    display: inline-block;
-    margin-top: 4px;
-    padding-top: 32px;            /* room for tabs to peek above CTA — needs
-                                     to be at least ~30px so the strong text
-                                     (centered at y=20 in a 40px tag) is
-                                     fully visible, not just the rounded top */
-  }
-  .step-cta-wrap .step-cta {
-    position: relative;
-    z-index: 2;                   /* in front of tabs */
-  }
-  .step-cta-wrap .step-tags {
-    position: absolute;
-    top: 0;
-    left: 18px;                   /* slight indent so tabs aren't flush with the CTA's rounded edge */
-    right: auto;
-    margin: 0;
-    z-index: 1;                   /* behind CTA */
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  /* Cancel <strong>'s always-on right gap so the compact tab is tight */
-  .step-cta-wrap .step-tag strong { margin-right: 0; }
-  .step-cta-wrap .tag-rest {
-    display: inline-block;
-    max-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    opacity: 0;
-    margin-left: 0;
-    transition:
-      max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
-      opacity 0.3s ease 0.05s,
-      margin-left 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
-  }
-  @media (hover: hover) {
-    .step-cta-wrap:hover .step-tags {
-      transform: translateY(-26px);   /* lift tabs fully above CTA */
-    }
-    .step-cta-wrap:hover .tag-rest {
-      max-width: 260px;
-      opacity: 1;
-      margin-left: 4px;
-    }
-    /* Stagger the rest-reveal across tabs */
-    .step-cta-wrap:hover .step-tag:nth-child(1) .tag-rest { transition-delay: 0.18s; }
-    .step-cta-wrap:hover .step-tag:nth-child(2) .tag-rest { transition-delay: 0.24s; }
-    .step-cta-wrap:hover .step-tag:nth-child(3) .tag-rest { transition-delay: 0.30s; }
-  }
-  /* Touch fallback: tabs always fully above CTA, expanded. No translation
-     needed — we just make room with padding-top equal to tag height + gap. */
-  @media (hover: none) {
-    .step-cta-wrap { padding-top: 60px; }
-    .step-cta-wrap .step-tags { transform: none; }
-    .step-cta-wrap .tag-rest {
-      max-width: none;
-      opacity: 1;
-      margin-left: 4px;
-    }
-  }
   .step-cta {
     display: inline-flex;
     align-items: center;
