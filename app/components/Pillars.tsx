@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import LiveDataFlow from "./livedata/LiveDataFlow";
+import WaterfallFlow from "./livedata/WaterfallFlow";
 
 export default function Pillars() {
   const ref = useRef<HTMLDivElement>(null);
@@ -87,26 +88,7 @@ export default function Pillars() {
             <a href="#" className="step-cta">Discover our waterfall →</a>
           </div>
           <div className="step-mock-wrap">
-            <div className="step-mock">
-              <div className="mock-contact">
-                <div className="dots"><span></span><span></span><span></span></div>
-                <div className="avatar"></div>
-                <div className="info">
-                  <div className="nm">Brian Balfour</div>
-                  <div className="meta">
-                    <span>✉ brian@reforge.com</span>
-                    <span>📞 +1 (555) 123-4567</span>
-                  </div>
-                </div>
-              </div>
-              <div className="mock-providers">
-                <div className="row"><div className="icon" style={{ background: "#8B5CF6" }}>W</div><div className="nm">Wiza</div><div className="status status-na">✕ Not found</div></div>
-                <div className="row"><div className="icon" style={{ background: "#3B82F6" }}>d</div><div className="nm">Datagma</div><div className="status status-na">✕ Not found</div></div>
-                <div className="row"><div className="icon" style={{ background: "#F97316" }}>H</div><div className="nm">Hunter</div><div className="status status-err">✕ Invalid email</div></div>
-                <div className="more">··· 15 more data providers ···</div>
-                <div className="row"><div className="icon" style={{ background: "#22C55E" }}>C</div><div className="nm">ContactOut</div><div className="status status-ok">✓ Verified phone found</div></div>
-              </div>
-            </div>
+            <WaterfallFlow />
           </div>
         </article>
 

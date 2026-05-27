@@ -55,7 +55,7 @@ const STEPS: Step[] = [
     reveal: true,
     loading: true,
     rows: [
-      { avatar: "https://i.pravatar.cc/64?img=47", primary: "léa bernard", secondary: "vp sales", coDomain: "notion.so", coName: "Notion", tone: "raw", tag: "In persona" },
+      { avatar: "https://i.pravatar.cc/64?img=68", primary: "colin paul", secondary: "vp sales", coDomain: "notion.so", coName: "Notion", tone: "raw", tag: "In persona" },
       { avatar: "https://i.pravatar.cc/64?img=12", primary: "MARK OLSON", secondary: "mktg intern", coDomain: "linear.app", coName: "Linear", tone: "raw", tag: "In persona" },
       { avatar: "https://i.pravatar.cc/64?img=44", primary: "sarah CHEN", secondary: "head of mktg", coDomain: "stripe.com", coName: "Stripe", tone: "raw", tag: "In persona" },
       { avatar: "https://i.pravatar.cc/64?img=33", primary: "marcus patel", secondary: "c.m.o.", coDomain: "vercel.com", coName: "Vercel", tone: "raw", tag: "In persona" },
@@ -67,7 +67,7 @@ const STEPS: Step[] = [
     title: "Filtering & cleaning your leads",
     sub: "Matches kept, records cleaned",
     rows: [
-      { avatar: "https://i.pravatar.cc/64?img=47", primary: "Léa Bernard", secondary: "VP Sales", coDomain: "notion.so", coName: "Notion", tone: "ok", tag: "Kept" },
+      { avatar: "https://i.pravatar.cc/64?img=68", primary: "Colin Paul", secondary: "VP Sales", coDomain: "notion.so", coName: "Notion", tone: "ok", tag: "Kept" },
       { avatar: "https://i.pravatar.cc/64?img=12", primary: "Mark Olson", secondary: "Marketing Intern", coDomain: "linear.app", coName: "Linear", tone: "no", tag: "Dropped" },
       { avatar: "https://i.pravatar.cc/64?img=44", primary: "Sarah Chen", secondary: "Head of Marketing", coDomain: "stripe.com", coName: "Stripe", tone: "ok", tag: "Kept" },
       { avatar: "https://i.pravatar.cc/64?img=33", primary: "Marcus Patel", secondary: "CMO", coDomain: "vercel.com", coName: "Vercel", tone: "ok", tag: "Kept" },
