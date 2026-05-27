@@ -3,6 +3,10 @@ import LogosWall from "./LogosWall";
 export default function Hero() {
   return (
     <section className="hero">
+      <div className="hero-phone">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/phone-hero.png" alt="Red telephone handset hanging from its cord" />
+      </div>
       <div className="hero-content">
         <div className="h1-wrapper">
           <h1>
@@ -19,10 +23,6 @@ export default function Hero() {
               </span>
             </span>
           </h1>
-          <div className="flying-bucket">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/popcorn-bucket.png" alt="Pixel art popcorn bucket" />
-          </div>
         </div>
 
         <p className="subtitle">

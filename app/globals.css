@@ -354,6 +354,39 @@
     .logo-item .logo-name { font-size: 18px; }
   }
 
+  /* Treadmill pinned-scroll section.
+     The tall track gives one extra viewport of scroll during which the inner
+     sticky child stays full-screen and the H2 title swaps. */
+  .treadmill-pin-track {
+    position: relative;
+    z-index: 10;
+    height: 200vh;
+  }
+  .treadmill-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Two H2s stacked so they can crossfade into each other */
+  .anywhere-title {
+    position: relative;
+  }
+  .anywhere-title .title-swap {
+    margin-bottom: 28px;
+    will-change: opacity, transform;
+  }
+  .anywhere-title .title-swap--alt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+  }
+
   /* Popcorn cloud transition */
   .popcorn-cloud-transition {
     position: relative;
@@ -427,6 +460,14 @@
     line-height: 1.2;
     padding-bottom: 0.1em;
     width: 100%;
+    /* Widen the horizontal clip box so wide words (LEADS/LIFE) aren't
+       clipped on the sides, while keeping the vertical slide clip and
+       staying centered (width grows by 2×padding to offset the margins). */
+    width: calc(100% + 160px);
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: -80px;
+    margin-right: -80px;
   }
 
   .h1-rotating span {
@@ -475,6 +516,42 @@
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+  }
+
+  /* Red phone hanging from the top of the hero by its cord */
+  .hero-phone {
+    position: absolute;
+    top: 0;
+    left: 2%;
+    width: 290px;
+    z-index: 2;
+    pointer-events: none;
+    transform-origin: 50% 0;
+    animation: phoneDrop 1.3s cubic-bezier(0.34, 1.4, 0.64, 1) 0.2s both;
+  }
+  .hero-phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* The sketch ships on beige paper; multiply drops the paper into the
+       cream hero so only the pencil strokes show. */
+    mix-blend-mode: multiply;
+  }
+
+  @keyframes phoneDrop {
+    0% { transform: translateY(-100%) rotate(-3deg); opacity: 0; }
+    60% { opacity: 1; }
+    75% { transform: translateY(2%) rotate(4deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  @keyframes phoneSwing {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  @media (max-width: 900px) {
+    .hero-phone { width: 140px; left: 2%; }
   }
 
   @keyframes stickerFlyIn {
@@ -569,11 +646,14 @@
   .anywhere {
     background: var(--dark);
     color: var(--cream);
-    padding: 80px 48px 120px;
+    padding: 56px 48px 0;
     margin-top: -2px;
     position: relative;
     overflow: hidden;
-    min-height: 780px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
   .anywhere-pills {
     display: flex;
@@ -584,7 +664,7 @@
     z-index: 3;
     margin-bottom: 48px;
     max-width: 1280px;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
   }
   .anywhere-pills .pill {
@@ -646,7 +726,8 @@
     position: relative;
     width: 100%;
     height: 220px;
-    margin-top: 56px;
+    margin-top: auto;
+    margin-bottom: 120px;
     z-index: 3;
   }
   .treadmill-belt {
@@ -659,35 +740,22 @@
     height: auto;
     object-fit: contain;
     object-position: center bottom;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+  }
+  /* Realistic belt layered exactly over the sketch, wiped in left → right */
+  .treadmill-belt--real {
+    z-index: 1;
+    will-change: clip-path;
   }
 
+  /* Static popcorn bucket resting on the belt, offset to the right */
   .bucket-runner {
     position: absolute;
-    left: 0;
-    bottom: 230px;
-    width: 120px;
-    height: 140px;
-    transform: translateX(-140px);
-    transform-origin: 100% 100%;
-    transition: none;
-  }
-  .bucket-runner.go {
-    animation: slideTreadmill 6s cubic-bezier(0.45, 0, 0.2, 1) forwards,
-               bucketGrow 1.6s cubic-bezier(0.34, 1.5, 0.5, 1) 6.2s forwards;
-  }
-  @keyframes slideTreadmill {
-    0%   { left: 0;    transform: translateX(-140px) scale(0.6) rotate(-2deg); }
-    8%   { transform: translateX(-140px) scale(0.6) rotate(2deg); }
-    16%  { transform: translateX(-140px) scale(0.6) rotate(-2deg); }
-    100% { left: 88%;  transform: translateX(0) scale(0.6) rotate(0deg); }
-  }
-  @keyframes bucketGrow {
-    0%   { transform: translateX(0) scale(0.6); }
-    60%  { transform: translateX(0) scale(1.42); }
-    100% { transform: translateX(0) scale(1.36); }
+    left: 76%;
+    bottom: 86px;
+    width: 180px;
+    height: 210px;
+    transform: translateX(-50%);
+    z-index: 2;
   }
   .bucket-img {
     position: absolute;
@@ -696,101 +764,30 @@
     height: 100%;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(2px 6px 8px rgba(0,0,0,0.4));
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
   }
   .bucket-img.full {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-  .bucket-runner.go .bucket-img.full {
     opacity: 1;
-    transition-delay: 6.4s;
   }
-  .bucket-runner.go .bucket-img.empty {
-    opacity: 0;
-    transition: opacity 0.4s ease 6.5s;
+  /* Realistic bucket layered over the sketch, revealed bottom → top */
+  .bucket-img.real {
+    z-index: 1;
+    will-change: clip-path;
   }
-
-  .arrived-spark {
-    position: absolute;
-    right: -8px;
-    bottom: 60px;
-    color: var(--butter);
-    font-weight: 800;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  .bucket-runner.go ~ .arrived-spark {
-    animation: sparkFade 0.6s ease 6.4s forwards;
-  }
-  @keyframes sparkFade {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Orbiting provider logos around the bucket on arrival */
-  .bucket-orbit {
-    position: absolute;
-    left: 60px;       /* horizontal center of bucket */
-    top: 70px;        /* vertical center of bucket body */
-    width: 0;
-    height: 0;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .orbit-icon {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    margin: -20px 0 0 -20px;
-    border-radius: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 17px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-    opacity: 0;
-    transform: rotate(calc(360deg * var(--phase, 0))) translateX(115px) rotate(calc(-360deg * var(--phase, 0)));
-    transition: opacity 0.5s ease;
-  }
-  .bucket-runner.go .orbit-icon {
-    opacity: 1;
-    transition-delay: 6.2s;
-    animation: orbitAround 7s linear infinite;
-    animation-delay: calc(6.2s - 7s * var(--phase, 0));
-  }
-  @keyframes orbitAround {
-    from { transform: rotate(0deg)   translateX(115px) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(115px) rotate(-360deg); }
-  }
-  /* fade out the ambient bottom arc icons when bucket arrives so the orbit reads cleaner */
-  .anywhere .icon-arc { transition: opacity 0.8s ease; }
-  .anywhere.bucket-arrived .icon-arc { opacity: 0.12; }
 
   @media (max-width: 900px) {
     .anywhere-grid { grid-template-columns: 1fr; gap: 56px; }
   }
 
-  /* Checked tags above the bucket on arrival */
+  /* Checked value tags, stacked above the bucket */
   .bucket-tags {
     position: absolute;
-    left: 60px;       /* bucket horizontal center */
-    bottom: 230px;    /* well above bucket + orbit ring */
+    left: 76%;
+    bottom: 300px;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
     pointer-events: none;
     z-index: 4;
   }
@@ -806,8 +803,6 @@
     font-weight: 700;
     white-space: nowrap;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-    opacity: 0;
-    transform: translateY(10px) scale(0.85);
   }
   .bucket-tag .check {
     width: 18px;
@@ -821,15 +816,6 @@
     font-size: 11px;
     font-weight: 900;
     flex-shrink: 0;
-  }
-  .bucket-runner.go .bucket-tag {
-    animation: tagPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .bucket-runner.go .bucket-tag:nth-child(1) { animation-delay: 7.0s; }
-  .bucket-runner.go .bucket-tag:nth-child(2) { animation-delay: 7.15s; }
-  .bucket-runner.go .bucket-tag:nth-child(3) { animation-delay: 7.30s; }
-  @keyframes tagPop {
-    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* Sizes */
